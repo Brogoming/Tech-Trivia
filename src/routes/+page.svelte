@@ -1,2 +1,2 @@
 <h1>Home</h1>
-<a href="/board">Play Game</a>
+<a href="/board/game">Play Game</a>
