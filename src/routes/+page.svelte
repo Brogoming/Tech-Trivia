@@ -1,6 +1,12 @@
 <script>
-    import game1 from '../../premadeSets/game1.json'
+	import { base } from '$app/paths';
+	let { data } = $props();
 </script>
 
 <h1>Home</h1>
-<a href="/board/game">Play Game</a>
+
+<ul>
+	{#each data.games as { slug }}
+		<li><a href="{base}/board/{slug}">{slug}</a></li>
+	{/each}
+</ul>
