@@ -1,7 +1,7 @@
 <div class="min-h-screen flex flex-col">
 
     <div class="flex w-1/2 mx-auto p-4">
-        <div class="flex-initial font-bold px-4 py-2 m-2 mx-auto p-4 rounded" >
+        <div class="flex-initial font-bold px-4 py-2 m-2 mx-auto p-4" >
             <h1 class="text-8xl">Tech Trivia</h1>
         </div>
     </div>
