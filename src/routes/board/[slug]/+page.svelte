@@ -1,0 +1,45 @@
+<script>
+	import QuestionCell from '$lib/QuestionCell.svelte';
+	import TeamCard from '$lib/TeamCard.svelte';
+
+	let { data } = $props();
+	let gameSet = data.post.set;
+
+	let teams = [
+		//TODO: temporary
+		{ name: 'team1', points: 0 },
+		{ name: 'team2', points: 0 },
+		{ name: 'team3', points: 0 }
+	];
+</script>
+
+<h1 class="text-center text-4xl">{data.post.slug}</h1>
+
+<div class="m-auto">
+	<div class="flex place-content-center text-center text-4xl">
+		{#each Object.keys(gameSet) as category}
+			<div>
+				<div class="categoryCell border-4 border-solid border-black p-9">{category}</div>
+				{#each Object.keys(gameSet[category]) as question}
+					<QuestionCell
+						points={gameSet[category][question].points}
+						{question}
+						answer={gameSet[category][question].answer}
+					/>
+				{/each}
+			</div>
+		{/each}
+	</div>
+</div>
+
+<div class="mt-4 flex">
+	{#each teams as team}
+		<TeamCard name={team.name} points={team.points} />
+	{/each}
+</div>
+
+<style>
+	.categoryCell {
+		background-image: radial-gradient(#002bf1, #0c0069);
+	}
+</style>
