@@ -16,15 +16,18 @@
 <h1 class="text-center text-4xl">{data.post.slug}</h1>
 
 <div class="m-auto">
-	<div class="flex place-content-center text-center text-4xl">
+	<div class="flex place-content-center text-4xl">
 		{#each Object.keys(gameSet) as category}
 			<div>
-				<div class="categoryCell border-4 border-solid border-black p-9">{category}</div>
+				<div class="categoryCell border-4 border-solid border-black p-9 text-center">
+					{category}
+				</div>
 				{#each Object.keys(gameSet[category]) as question}
 					<QuestionCell
 						points={gameSet[category][question].points}
 						{question}
 						answer={gameSet[category][question].answer}
+						{teams}
 					/>
 				{/each}
 			</div>

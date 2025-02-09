@@ -1,20 +1,24 @@
 <script>
-	export let question = '';
-	export let answer = '';
-	export let points = 0;
-	export let isAvailble = true;
+	import QuestionModal from './QuestionModal.svelte';
+	let { question, answer, points, teams } = $props();
+	let showModal = $state(false);
+	let isAvailble = $state(true);
 </script>
 
+<QuestionModal
+	show={showModal}
+	on:close={() => (showModal = false)}
+	{question}
+	{answer}
+	{points}
+	{isAvailble}
+	{teams}
+/>
+
 <button
-	class="bgCell w-full border-4 border-solid border-black p-7 text-6xl font-extrabold text-black"
+	class="bgCell w-full border-4 border-solid border-black p-7 text-center text-6xl font-extrabold text-black"
 	onclick={() => {
-		console.log(question);
-	}}
-	onkeydown={(e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			console.log(question);
-		}
+		showModal = true;
 	}}
 	aria-label="Points button"
 >
