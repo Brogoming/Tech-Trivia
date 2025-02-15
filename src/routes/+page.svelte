@@ -1,6 +1,9 @@
 <script>
     import { base } from '$app/paths';
     let { data } = $props();
+
+    import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+    import { ChevronDownOutline } from 'flowbite-svelte-icons';
 </script>
 
 <div class="min-h-screen flex flex-col">
@@ -11,11 +14,17 @@
         </div>
     </div>
 
-    <ul>
-        {#each data.games as { slug }}
-            <li><a href="{base}/board/{slug}">{slug}</a></li>
-        {/each}
-    </ul>
+
+    <div class="flex p-4 absolute right-5 top-1/2 transform -translate-y-1/2">
+        <Button >Select a Game Set<ChevronDownOutline class="w-6 h-6 ms-2 text-white" /> </Button>
+        <Dropdown>
+            <ul>
+                {#each data.games as { slug }}
+                    <li><a href="{base}/board/{slug}">{slug}</a></li>
+                {/each}
+        </ul>
+        </Dropdown>
+    </div>
     
 
     <div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
