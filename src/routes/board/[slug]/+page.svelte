@@ -5,12 +5,13 @@
 	let { data } = $props();
 	let gameSet = data.post.set;
 
-	let teams = [
+	let teams = $state([
 		//TODO: temporary
 		{ name: 'team1', points: 0 },
 		{ name: 'team2', points: 0 },
 		{ name: 'team3', points: 0 }
-	];
+	]);
+	let secondsTimer = $state(15); //TODO: temporary
 </script>
 
 <h1 class="text-center text-4xl">{data.post.slug}</h1>
@@ -28,6 +29,7 @@
 						{question}
 						answer={gameSet[category][question].answer}
 						{teams}
+						{secondsTimer}
 					/>
 				{/each}
 			</div>
