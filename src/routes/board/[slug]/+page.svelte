@@ -1,6 +1,7 @@
 <script>
 	import QuestionCell from '$lib/QuestionCell.svelte';
 	import TeamCard from '$lib/TeamCard.svelte';
+	import Icon from '@iconify/svelte';
 
 	let { data } = $props();
 	let gameSet = data.post.set;
@@ -14,7 +15,10 @@
 	let secondsTimer = $state(15); //TODO: temporary
 </script>
 
-<h1 class="text-center text-4xl">{data.post.slug}</h1>
+<div class="grid grid-cols-3 p-2 justify-center text-4xl">
+	<a class="mr-auto" href="/"><Icon icon="mdi-light:home" /></a>
+	<h1 class="text-center">{data.post.slug}</h1>
+</div>
 
 <div class="m-auto">
 	<div class="flex place-content-center text-4xl">

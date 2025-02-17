@@ -1,30 +1,51 @@
 <script>
 	let { question, answer } = $props();
+	let flipped = $state(false);
 </script>
 
 <button
-	class="cardbg w-full rounded-3xl border-4 border-solid border-black py-24 text-center text-wrap {flipped
+	class="card w-full rounded-3xl border-4 border-solid border-black py-24 text-center text-wrap {flipped
 		? 'flipped'
 		: ''}"
-	onclick={() => {
-		console.log('test');
-	}}
-	onkeydown={(e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			console.log('test');
-		}
-	}}
+	onclick={() => (flipped = !flipped)}
 	aria-label="Question card"
->
-	{question}
+	><div class="front">
+		{answer}
+	</div>
+	<div class="back">
+		{question}
+	</div>
 </button>
 
 <style>
-	.cardbg {
+	.card {
 		background-image: radial-gradient(#5271ff, #3400b2);
+		transform: rotateY(180deg);
+		transition: transform 1s;
+		transform-style: preserve-3d;
 	}
 	.card.flipped {
 		transform: rotateY(0);
+	}
+
+	.front,
+	.back {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		backface-visibility: hidden;
+		border-radius: 2em;
+		border: 1px solid var(--fg-2);
+		box-sizing: border-box;
+		padding: 2em;
+	}
+
+	.back {
+		transform: rotateY(180deg);
 	}
 </style>
