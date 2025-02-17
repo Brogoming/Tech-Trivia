@@ -1,21 +1,32 @@
 <script>
-	export let question = '';
-	export let answer = '';
-	export let points = 0;
-	export let isAvailble = true;
+	import QuestionModal from './QuestionModal.svelte';
+	let { question, answer, points, teams, secondsTimer } = $props();
+	let showModal = $state(false);
+	let isAvailble = $state(true);
 </script>
 
+<QuestionModal
+	show={showModal}
+	on:close={() => (showModal = false)}
+	on:disableButton={() => {
+		isAvailble = false;
+	}}
+	{question}
+	{answer}
+	{points}
+	{isAvailble}
+	{teams}
+	{secondsTimer}
+/>
+
 <button
-	class="bgCell w-full border-4 border-solid border-black p-7 text-6xl font-extrabold text-black"
+	class="bgCell w-full border-4 border-solid border-black p-7 text-center text-6xl font-extrabold text-black {isAvailble
+		? ''
+		: 'disableCell pointer-events-none'}"
 	onclick={() => {
-		console.log(question);
+		showModal = true;
 	}}
-	onkeydown={(e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			console.log(question);
-		}
-	}}
+	disabled={!isAvailble}
 	aria-label="Points button"
 >
 	{points}
@@ -26,5 +37,10 @@
 		background-image: radial-gradient(#5271ff, #3400b2);
 		-webkit-text-stroke-width: 1px;
 		-webkit-text-stroke-color: #ffbd95;
+	}
+	.disableCell {
+		background-image: radial-gradient(#041b85, #180052);
+		-webkit-text-stroke-width: 1px;
+		-webkit-text-stroke-color: #722c00;
 	}
 </style>
