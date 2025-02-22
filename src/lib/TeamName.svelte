@@ -1,3 +1,3 @@
 <script>
-	export let teamName = ""
+	export let TeamName = ([{name:"", points: 0}])
 </script>
