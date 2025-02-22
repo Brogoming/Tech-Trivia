@@ -1,9 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.bgGradient {
-    background-image: radial-gradient(#4b0079, #1f0086);
-    border: 16px solid rgb(0, 0, 0);
-    border-radius: 2em;
-}
