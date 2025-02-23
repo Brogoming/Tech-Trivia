@@ -18,6 +18,10 @@
 <div class="grid grid-cols-3 p-2 justify-center text-4xl">
 	<a class="mr-auto" href="/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
+	<a
+		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-base my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		href="/congrats">End Game</a
+	>
 </div>
 
 <div class="m-auto">

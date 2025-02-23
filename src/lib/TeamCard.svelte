@@ -11,6 +11,7 @@
 		class="w-1/3 bg-gray-400 rounded-xl text-right"
 		type="number"
 		min="0"
+		step="100"
 		bind:value={points}
 	/>pts
 </div>
