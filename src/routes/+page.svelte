@@ -10,11 +10,16 @@
 	let selectedGame = $state('');
 	let startButtonText = $state('');
 	let numberOfTeams = $state(null);
-	let teams = $state([]);
+	let teams = $state([
+        { "name": "", "points": 0 }, 
+        { "name": "", "points": 0 }, 
+        { "name": "", "points": 0 } 
+		]);
+
 
 	onMount(async () => {
-		const response = await fetch('./data.json');
-		console.log(response);
+		const response = teams
+	    console.log(teams);
 		const data = await response.json();
 		teams = data.teams;
 		console.log(teams);

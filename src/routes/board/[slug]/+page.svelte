@@ -12,12 +12,12 @@
 
 	onMount(() => { 
 
-if (browser) { 
-	const storedTeams = localStorage.getItem("teams"); 
-	if (storedTeams) { 
-		teams = JSON.parse(storedTeams); 
-	} 
-}} )
+	if (browser) { 
+		const storedTeams = localStorage.getItem("teams"); 
+		if (storedTeams) { 
+			teams = JSON.parse(storedTeams); 
+		} 
+	}} )
 
 
 	let secondsTimer = $state(15); //TODO: temporary
