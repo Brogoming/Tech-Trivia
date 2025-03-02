@@ -1,6 +1,5 @@
 <script>
 	import { base } from '$app/paths';
-	import { onMount } from 'svelte';
 	let { data } = $props();
 
 	import { Button, Dropdown, DropdownItem, Select } from 'flowbite-svelte';
@@ -11,19 +10,10 @@
 	let startButtonText = $state('');
 	let numberOfTeams = $state(null);
 	let teams = $state([
-        { "name": "", "points": 0 }, 
-        { "name": "", "points": 0 }, 
-        { "name": "", "points": 0 } 
+        { "name": "team1", "points": 0 }, 
+        { "name": "team2", "points": 0 }, 
+        { "name": "team3", "points": 0 } 
 		]);
-
-
-	onMount(async () => {
-		const response = teams
-	    console.log(teams);
-		const data = await response.json();
-		teams = data.teams;
-		console.log(teams);
-	});
 
 	function selectGame(slug) {
 		console.log('Selecting game:', slug);
