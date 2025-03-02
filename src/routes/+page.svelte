@@ -28,7 +28,12 @@
 	function selectGame(slug) {
 		console.log('Selecting game:', slug);
 		selectedGame = slug;
-		startButtonText = `Start ${slug}`;
+		if (slug === 'Game1') {
+			{startButtonText = "Start Game 1"}
+		}
+		else {
+			{startButtonText = "Start Game 2"}
+		}
 	}
 
 	function startGame() {
@@ -74,10 +79,14 @@
 				{#each data.games as { slug }}
 					<li>
 						<button
-							class={`py-2 px-4 ${selectedGame === slug ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'}`}
+							class={`py-2 px-4 ${selectedGame === slug ? 'bg-blue-500 text-white' : 'hover:bg-blue-700'}`}
 							onclick={() => selectGame(slug)}
 						>
-							{slug}
+						{#if slug === 'Game1'}
+							Game 1
+						{:else}
+							Game 2
+						{/if}
 						</button>
 					</li>
 				{/each}
@@ -92,7 +101,7 @@
 				id="numberOfTeams"
 				bind:value={numberOfTeams}
 				on:change={updateTeams}
-				class="w-16 text-center"
+				class="w-20 text-center text-black"
 			>
 				<option value={null}>Select</option>
 				<option value={1}>1</option>
@@ -109,7 +118,7 @@
 						type="text"
 						id="team{i + 1}"
 						bind:value={team.name}
-						placeholder={`Team ${i + 1}`}
+						
 						class="flex-grow p-2 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
 					/>
 				</div>
