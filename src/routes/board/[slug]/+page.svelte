@@ -2,22 +2,34 @@
 	import QuestionCell from '$lib/QuestionCell.svelte';
 	import TeamCard from '$lib/TeamCard.svelte';
 	import Icon from '@iconify/svelte';
+	import { onMount } from "svelte" 
+	import { browser } from "$app/environment" 
 
 	let { data } = $props();
 	let gameSet = data.post.set;
 
-	let teams = $state([
-		//TODO: temporary
-		{ name: 'team1', points: 0 },
-		{ name: 'team2', points: 0 },
-		{ name: 'team3', points: 0 }
-	]);
+	let teams = $state([]);
+
+	onMount(() => { 
+
+	if (browser) { 
+		const storedTeams = localStorage.getItem("teams"); 
+		if (storedTeams) { 
+			teams = JSON.parse(storedTeams); 
+		} 
+	}} )
+
+
 	let secondsTimer = $state(15); //TODO: temporary
 </script>
 
 <div class="grid grid-cols-3 p-2 justify-center text-4xl">
 	<a class="mr-auto" href="/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
+	<a
+		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-base my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		href="/congrats">End Game</a
+	>
 </div>
 
 <div class="m-auto">
