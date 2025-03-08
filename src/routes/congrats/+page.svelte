@@ -1,18 +1,27 @@
 <script>
     import Icon from '@iconify/svelte';
-    import TeamCard from '$lib/TeamCard.svelte';
+    import { onMount } from "svelte" 
+	import { browser } from "$app/environment" 
 
 
 	let { data } = $props();
+    
     let teams = $state([
-		//TODO: temporary
-		{ name: 'Team1', points: 1400 },
-		{ name: 'Team2', points: 1300 },
-		{ name: 'Team3', points: 1900 }
-	]);
+        { "name": "team1", "points": 0 }, 
+        { "name": "team2", "points": 0 }, 
+        { "name": "team3", "points": 0 } 
+		]);
 
-    // svelte-ignore state_referenced_locally
-        teams = [...teams].sort((a, b) => b.points - a.points);
+	onMount(() => { 
+
+	if (browser) { 
+		const storedTeams = localStorage.getItem('teams'); 
+		if (storedTeams) { 
+			teams = JSON.parse(storedTeams); 
+		} 
+	}} )
+
+    
 
 </script>
 
