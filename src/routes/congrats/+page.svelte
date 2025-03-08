@@ -1,14 +1,19 @@
 <script>
     import Icon from '@iconify/svelte';
+    import TeamCard from '$lib/TeamCard.svelte';
+
 
 	let { data } = $props();
-
     let teams = $state([
 		//TODO: temporary
-		{ name: 'team1', points: 1000 },
-		{ name: 'team2', points: 1300 },
-		{ name: 'team3', points: 980 }
+		{ name: 'Team1', points: 1400 },
+		{ name: 'Team2', points: 1300 },
+		{ name: 'Team3', points: 1900 }
 	]);
+
+    // svelte-ignore state_referenced_locally
+        teams = [...teams].sort((a, b) => b.points - a.points);
+
 </script>
 
 <style>
@@ -24,10 +29,10 @@
         padding: 15px;
     }
     .second {
-        padding: 55px;
+        padding: 56px;
     }
     .third {
-        padding: 75px;
+        padding: 84px;
     }
 </style>
 
@@ -36,18 +41,29 @@
     <div class="flex place-content-center text-center text-4xl"><h1>Congrats</h1></div>
 </div>
 
-
 <div class="columns">
     <div class="column">
         <div class="second"></div>
-        <header class="placements">Second</header>
+        <div class="placements">
+            <header style="font-size: 45px;">{teams.at(1).name}</header>
+            <header style="font-size: 30px;">{teams.at(1).points}</header>
+            <enhanced:img src='../../PedestalPics/Second.avif' alt="Second" />
+        </div>
     </div>
     <div class="column">
         <div class="first"></div>
-        <header class="placements">First</header>
+        <div class="placements">
+            <header style="font-size: 45px;">{teams.at(0).name}</header>
+            <header style="font-size: 30px;">{teams.at(0).points}</header>
+            <enhanced:img src='../../PedestalPics/first.avif' alt="First" />
+        </div>
     </div>
     <div class="column">
         <div class="third"></div>
-        <header class="placements">Third</header>
+        <div class="placements">
+            <header style="font-size: 45px;">{teams.at(2).name}</header>
+            <header style="font-size: 30px;">{teams.at(2).points}</header>
+            <enhanced:img src='../../PedestalPics/Third.avif' alt="Third" />
+        </div>
     </div>
 </div>
