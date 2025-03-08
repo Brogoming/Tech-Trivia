@@ -4,6 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import { onMount } from "svelte" 
 	import { browser } from "$app/environment" 
+	import { json } from '@sveltejs/kit';
 
 	let { data } = $props();
 	let gameSet = data.post.set;
@@ -19,8 +20,13 @@
 		} 
 	}} )
 
-
 	let secondsTimer = $state(15); //TODO: temporary
+
+	function endGame() {
+		teams = [...teams].sort((a, b) => b.points - a.points);
+		localStorage.setItem('teams', JSON.stringify(teams));
+	}
+	
 </script>
 
 <div class="grid grid-cols-3 p-2 justify-center text-4xl">
@@ -28,6 +34,7 @@
 	<h1 class="text-center">{data.post.slug}</h1>
 	<a
 		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-base my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		onclick={endGame}
 		href="/congrats">End Game</a
 	>
 </div>
