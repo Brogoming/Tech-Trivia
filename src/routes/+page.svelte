@@ -45,12 +45,22 @@
 	}
 
 	function updateTeams() {
-		if (numberOfTeams !== null) {
-			teams = Array(numberOfTeams)
-				.fill()
-				.map((_, i) => teams[i] || { name: '' });
+	if (numberOfTeams !== null) {
+		teams = Array.from({ length: numberOfTeams }, (_, i) => {
+			let name = '';
+			if (teams[i] && teams[i].name.trim() !== '') {
+				name = teams[i].name;
+			} else {
+				name = `team${i + 1}`;
+			}
+			return {
+				name,
+				points: 0,
+			};
+			});
 		}
 	}
+
 </script>
 
 <div class="min-h-screen flex flex-col">
