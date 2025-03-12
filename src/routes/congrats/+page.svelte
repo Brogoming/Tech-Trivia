@@ -54,9 +54,11 @@
     <div class="column">
         <div class="second"></div>
         <div class="placements">
-            <header style="font-size: 45px;">{teams.at(1).name}</header>
-            <header style="font-size: 30px;">{teams.at(1).points}</header>
-            <enhanced:img src='../../PedestalPics/Second.avif' alt="Second" />
+            {#if teams.length > 1}
+                <header style="font-size: 45px;">{teams.at(1).name}</header>
+                <header style="font-size: 30px;">{teams.at(1).points}</header>
+                <enhanced:img src='../../PedestalPics/Second.avif' alt="Second" />
+            {/if}
         </div>
     </div>
     <div class="column">
@@ -70,9 +72,11 @@
     <div class="column">
         <div class="third"></div>
         <div class="placements">
-            <header style="font-size: 45px;">{teams.at(2).name}</header>
-            <header style="font-size: 30px;">{teams.at(2).points}</header>
-            <enhanced:img src='../../PedestalPics/Third.avif' alt="Third" />
+            {#if teams.length === 3}
+                <header style="font-size: 45px;">{teams.at(2).name}</header>
+                <header style="font-size: 30px;">{teams.at(2).points}</header>
+                <enhanced:img src='../../PedestalPics/Third.avif' alt="Third" />
+            {/if}
         </div>
     </div>
 </div>

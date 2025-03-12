@@ -48,7 +48,7 @@
 		if (numberOfTeams !== null) {
 			teams = Array(numberOfTeams)
 				.fill()
-				.map((_, i) => teams[i] || { name: '' });
+				.map((_, i) => teams[i] || { name: '', points: 0 });
 		}
 	}
 </script>
