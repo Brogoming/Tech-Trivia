@@ -2,28 +2,22 @@
 	import { base } from '$app/paths';
 	let { data } = $props();
 
-	import { Button, Dropdown, DropdownItem, Select } from 'flowbite-svelte';
+	import { Button, Dropdown, Select } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
-	import TeamName from '$lib/TeamName.svelte';
 
 	let selectedGame = $state('');
 	let startButtonText = $state('');
 	let numberOfTeams = $state(null);
 	let teams = $state([
-        { "name": "team1", "points": 0 }, 
-        { "name": "team2", "points": 0 }, 
-        { "name": "team3", "points": 0 } 
-		]);
+		{ name: 'team1', points: 0 },
+		{ name: 'team2', points: 0 },
+		{ name: 'team3', points: 0 }
+	]);
 
 	function selectGame(slug) {
 		console.log('Selecting game:', slug);
 		selectedGame = slug;
-		if (slug === 'Game1') {
-			{startButtonText = "Start Game 1"}
-		}
-		else {
-			{startButtonText = "Start Game 2"}
-		}
+		startButtonText = `Start ${slug}`;
 	}
 
 	function startGame() {
@@ -38,7 +32,7 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
-			window.location.href = `/board/${selectedGame}`;
+			window.location.href = `${base}/board/${selectedGame}`;
 		} else {
 			alert('Please enter names for all teams');
 		}
@@ -55,12 +49,11 @@
 				}
 				return {
 					name,
-					points: 0,
+					points: 0
 				};
 			});
 		}
 	}
-
 </script>
 
 <div class="min-h-screen flex flex-col">
@@ -82,11 +75,7 @@
 							class={`py-2 px-4 ${selectedGame === slug ? 'bg-blue-500 text-white' : 'hover:bg-blue-700'}`}
 							onclick={() => selectGame(slug)}
 						>
-						{#if slug === 'Game1'}
-							Game 1
-						{:else}
-							Game 2
-						{/if}
+							{slug}
 						</button>
 					</li>
 				{/each}
@@ -118,7 +107,6 @@
 						type="text"
 						id="team{i + 1}"
 						bind:value={team.name}
-						
 						class="flex-grow p-2 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
 					/>
 				</div>
