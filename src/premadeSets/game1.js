@@ -1,12 +1,12 @@
 export default {
-	category1: {
+	Acronyms: {
 		question1: { answer: 'answer', points: 100 },
 		question2: { answer: 'answer', points: 200 },
 		question3: { answer: 'answer', points: 300 },
 		question4: { answer: 'answer', points: 400 },
 		question5: { answer: 'answer', points: 500 }
 	},
-	category2: {
+	Companies: {
 		question6: { answer: 'answer', points: 100 },
 		question7: { answer: 'answer', points: 200 },
 		question8: { answer: 'answer', points: 300 },
