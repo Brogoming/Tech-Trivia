@@ -5,7 +5,6 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
-	import { json } from '@sveltejs/kit';
 
 	let { data } = $props();
 	let gameSet = data.post.set;
