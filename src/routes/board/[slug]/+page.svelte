@@ -2,33 +2,40 @@
 	import QuestionCell from '$lib/QuestionCell.svelte';
 	import TeamCard from '$lib/TeamCard.svelte';
 	import Icon from '@iconify/svelte';
-	import { onMount } from "svelte" 
-	import { browser } from "$app/environment" 
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 
 	let { data } = $props();
 	let gameSet = data.post.set;
 
 	let teams = $state([]);
 
-	onMount(() => { 
-
-	if (browser) { 
-		const storedTeams = localStorage.getItem("teams"); 
-		if (storedTeams) { 
-			teams = JSON.parse(storedTeams); 
-		} 
-	}} )
-
+	onMount(() => {
+		if (browser) {
+			const storedTeams = localStorage.getItem('teams');
+			if (storedTeams) {
+				teams = JSON.parse(storedTeams);
+			}
+		}
+	});
 
 	let secondsTimer = $state(15); //TODO: temporary
+
+	function endGame() {
+		teams = [...teams].sort((a, b) => b.points - a.points);
+		localStorage.setItem('teams', JSON.stringify(teams));
+	}
+	
 </script>
 
 <div class="grid grid-cols-3 p-2 justify-center text-4xl">
-	<a class="mr-auto" href="/"><Icon icon="mdi-light:home" /></a>
+	<a class="mr-auto" href="{base}/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
 	<a
 		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-base my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
-		href="/congrats">End Game</a
+		onclick={endGame}
+		href="{base}/congrats">End Game</a
 	>
 </div>
 
