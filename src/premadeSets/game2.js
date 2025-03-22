@@ -32,7 +32,7 @@ export default {
 			{ answer: 'Social Engineering', points: 200 },
 		'Said to have been the brainchild of Odysseus, what construction from ancient Greek mythology gives its name to software that misleads users of its true intent by disguising itself as a standard program?':
 			{ answer: 'Trojan Horse', points: 300 },
-		"What term that can describe part of a house also means a way to access a computer system or encrypted data that bypasses the system's usual security mechanisms":
+		"What term that can describe part of a house also means a way to access a computer system or encrypted data that bypasses the system's usual security mechanisms?":
 			{ answer: 'Back door', points: 400 },
 		'A global ransomware attack on Windows computers that occurred in May 2017 came from a virus with what "tearful" name?':
 			{ answer: 'WannaCry', points: 500 }
@@ -40,9 +40,9 @@ export default {
 	'Computer Intelligence': {
 		"Which test, introduced by Alan Turing in 1950, assesses a machine's ability to exhibit human-like intelligence?":
 			{ answer: 'The Turing Test', points: 100 },
-		'What term describes AI systems that possess the ability to understand, learn, and apply knowledge across a broad range of tasks, similar to human intelligence':
+		'What term describes AI systems that possess the ability to understand, learn, and apply knowledge across a broad range of tasks, similar to human intelligence?':
 			{ answer: 'Artificial General Intelligence', points: 200 },
-		'In 2024, which AI model was identified as human 54% of the time in a randomized, controlled version of the Turing Test, surpassing older chatbots like ELIZA':
+		'In 2024, which AI model was identified as human 54% of the time in a randomized, controlled version of the Turing Test, surpassing older chatbots like ELIZA?':
 			{ answer: 'GPT-4', points: 300 },
 		'What term refers to AI systems that are designed to perform specific tasks, such as language translation or facial recognition, without possessing generalized intelligence?':
 			{ answer: 'Artifical Narrow Intelligence', points: 400 },
