@@ -26,7 +26,6 @@
 		teams = [...teams].sort((a, b) => b.points - a.points);
 		localStorage.setItem('teams', JSON.stringify(teams));
 	}
-	
 </script>
 
 <div class="grid grid-cols-3 p-2 justify-center text-4xl">
@@ -39,11 +38,11 @@
 	>
 </div>
 
-<div class="m-auto">
-	<div class="flex place-content-center text-4xl">
+<div class="py-10">
+	<div class="grid grid-cols-6">
 		{#each Object.keys(gameSet) as category}
 			<div>
-				<div class="categoryCell border-4 border-solid border-black p-9 text-center">
+				<div class="categoryCell border-4 border-solid border-black py-9 text-center text-2xl">
 					{category}
 				</div>
 				{#each Object.keys(gameSet[category]) as question}
@@ -58,12 +57,12 @@
 			</div>
 		{/each}
 	</div>
-</div>
 
-<div class="mt-4 flex">
-	{#each teams as team}
-		<TeamCard name={team.name} points={team.points} />
-	{/each}
+	<div class="mt-4 flex">
+		{#each teams as team}
+			<TeamCard name={team.name} points={team.points} />
+		{/each}
+	</div>
 </div>
 
 <style>

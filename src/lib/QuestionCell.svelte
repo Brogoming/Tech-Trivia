@@ -20,7 +20,7 @@
 />
 
 <button
-	class="bgCell w-full border-4 border-solid border-black p-7 text-center text-6xl font-extrabold text-black {isAvailble
+	class="bgCell w-full border-4 border-solid border-black py-5 text-center text-6xl font-extrabold text-black {isAvailble
 		? ''
 		: 'disableCell pointer-events-none'}"
 	onclick={() => {

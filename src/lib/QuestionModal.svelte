@@ -25,8 +25,8 @@
 </script>
 
 {#if show}
-	<div class="fixed inset-0 flex bg-black bg-opacity-50 text-3xl">
-		<div class="relative m-auto w-1/3 rounded-lg bg-black shadow-lg pb-7 space-y-2">
+	<div class="fixed inset-0 flex bg-black bg-opacity-50 text-2xl">
+		<div class="relative m-auto w-2/5 rounded-lg bg-black shadow-lg pb-7 space-y-2">
 			<button
 				onclick={() => {
 					startTimer = false;
