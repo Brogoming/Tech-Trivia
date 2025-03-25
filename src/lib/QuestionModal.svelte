@@ -26,7 +26,7 @@
 
 {#if show}
 	<div class="fixed inset-0 flex bg-black bg-opacity-50 text-xl z-10">
-		<div class="relative m-auto w-2/5 rounded-lg bg-black shadow-lg space-y-2 h-fit">
+		<div class="relative m-auto w-1/2 rounded-lg bg-black shadow-lg space-y-2 h-fit">
 			<button
 				onclick={() => {
 					startTimer = false;
@@ -59,7 +59,7 @@
 			<div class="space-y-2">
 				{#each teams as team}
 					<button
-						class="w-full rounded-xl border-4 border-solid border-black bg-gray-500 px-16 py-2 text-2xl text-black hover:bg-gray-400"
+						class="w-full rounded-xl border-4 border-solid border-black bg-gray-500 py-2 text-2xl text-black hover:bg-gray-400"
 						onclick={() => {
 							team.points += points;
 							handleDisable();

@@ -32,7 +32,7 @@
 	<a class="mr-auto" href="{base}/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
 	<a
-		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 sm:text-xl md:text-2xl lg:text-3xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-lg lg:text-3xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
 		onclick={endGame}
 		href="{base}/congrats">End Game</a
 	>
@@ -43,7 +43,7 @@
 		{#each Object.keys(gameSet) as category}
 			<div>
 				<div
-					class="categoryCell border-4 border-solid border-black py-9 text-center sm:text-lg md:text-xl lg:text-2xl"
+					class="categoryCell border-4 border-solid border-black py-9 text-center text-base xl:text-xl 2xl:text-2xl"
 				>
 					{category}
 				</div>

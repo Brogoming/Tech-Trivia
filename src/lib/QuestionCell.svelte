@@ -20,7 +20,7 @@
 />
 
 <button
-	class="transition ease-in-out duration-150 bgCell w-full border-4 border-solid border-black py-5 text-center sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-black hover:scale-110 {isAvailble
+	class="transition ease-in-out duration-150 bgCell w-full border-4 border-solid border-black py-5 text-center text-4xl lg:text-6xl font-extrabold text-black hover:scale-110 {isAvailble
 		? ''
 		: 'disableCell pointer-events-none'}"
 	onclick={() => {

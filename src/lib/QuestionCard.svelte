@@ -4,7 +4,7 @@
 </script>
 
 <button
-	class="card w-full rounded-3xl border-4 border-solid border-black py-24 text-center text-wrap {flipped
+	class="card w-full rounded-3xl border-4 border-solid border-black text-center text-wrap md:text-base lg:text-2xl md:py-24 lg:py-32 {flipped
 		? 'flipped'
 		: ''}"
 	onclick={() => (flipped = !flipped)}
