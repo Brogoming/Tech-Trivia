@@ -43,7 +43,7 @@
 		{#each Object.keys(gameSet) as category}
 			<div>
 				<div
-					class="categoryCell border-4 border-solid border-black py-9 text-center sm:text-xl md:text-2xl lg:text-3xl"
+					class="categoryCell border-4 border-solid border-black py-9 text-center sm:text-lg md:text-xl lg:text-2xl"
 				>
 					{category}
 				</div>

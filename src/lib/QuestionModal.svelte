@@ -25,7 +25,7 @@
 </script>
 
 {#if show}
-	<div class="fixed inset-0 flex bg-black bg-opacity-50 text-2xl z-10">
+	<div class="fixed inset-0 flex bg-black bg-opacity-50 text-xl z-10">
 		<div class="relative m-auto w-2/5 rounded-lg bg-black shadow-lg space-y-2 h-fit">
 			<button
 				onclick={() => {
