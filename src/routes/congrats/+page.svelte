@@ -20,57 +20,28 @@
 	});
 </script>
 
-<div class="grid grid-cols-3 p-2 justify-center text-4xl">
+<div class="grid grid-cols-3 p-2 justify-center sm:text-3xl md:text-4xl lg:text-5xl">
 	<a class="mr-auto" href="{base}/"><Icon icon="mdi-light:home" /></a>
-	<div class="flex place-content-center text-center text-4xl"><h1>Congrats</h1></div>
+	<div class="flex place-content-center text-center">Congrats!</div>
 </div>
 
-<div class="columns">
-	<div class="column">
-		<div class="second"></div>
-		<div class="placements">
-			{#if teams.length > 1}
-				<header style="font-size: 45px;">{teams.at(1).name}</header>
-				<header style="font-size: 30px;">{teams.at(1).points}</header>
-				<enhanced:img src="../../PedestalPics/Second.avif" alt="Second" />
-			{/if}
-		</div>
+<div class="flex text-center sm:text-4xl md:text-5xl lg:text-6xl">
+	<div style="">
+		{#if teams.length > 1}
+			<div>{teams.at(1).name}: {teams.at(1).points}</div>
+			<enhanced:img src="../../PedestalPics/Second.png" alt="Second" />
+		{/if}
 	</div>
-	<div class="column">
-		<div class="first"></div>
-		<div class="placements">
-			<header style="font-size: 45px;">{teams.at(0).name}</header>
-			<header style="font-size: 30px;">{teams.at(0).points}</header>
-			<enhanced:img src="../../PedestalPics/first.avif" alt="First" />
-		</div>
+	<div style="">
+		<header>{teams.at(0).name}: {teams.at(0).points}</header>
+		<enhanced:img src="../../PedestalPics/First.png" alt="First" />
 	</div>
-	<div class="column">
-		<div class="third"></div>
-		<div class="placements">
-			{#if teams.length === 3}
-				<header style="font-size: 45px;">{teams.at(2).name}</header>
-				<header style="font-size: 30px;">{teams.at(2).points}</header>
-				<enhanced:img src="../../PedestalPics/Third.avif" alt="Third" />
-			{/if}
-		</div>
+	<div class="">
+		{#if teams.length == 3}
+			<header style="">{teams.at(2).name}: {teams.at(2).points}</header>
+			<enhanced:img src="../../PedestalPics/Third.png" alt="Third" />
+		{/if}
 	</div>
 </div>
 
-<style>
-	.column {
-		width: 33.33%;
-		float: left;
-	}
-	.placements {
-		text-align: center;
-	}
-	.first {
-		padding: 15px;
-	}
-	.second {
-		padding: 56px;
-	}
-	.third {
-		padding: 84px;
-	}
-</style>
+<div class="w-full h-4 bg-black absolute inset-x-0 bottom-0 z-40"></div>
