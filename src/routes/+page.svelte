@@ -5,9 +5,18 @@
 	import { Button, Dropdown, Select } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 
+	let timerOptions = [
+        { value: 5, label: '5 seconds' },
+        { value: 10, label: '10 seconds' },
+        { value: 15, label: '15 seconds' },
+        { value: 20, label: '20 seconds' },
+        { value: 25, label: '25 seconds' },
+        { value: 30, label: '30 seconds' }
+    ];
+
 	let selectedGame = $state('');
 	let startButtonText = $state('');
-	let timerSeconds = $state();
+	let selectedTimer = $state(timerOptions[0].value);
 	let numberOfTeams = $state(null);
 	let teams = $state([
 		{ name: 'team1', points: 0 },
@@ -33,7 +42,7 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
-			localStorage.setItem('timerSeconds', timerSeconds);
+			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
 		} else {
 			alert('Please enter names for all teams');
@@ -121,12 +130,15 @@
 </div>
 	<div class="flex items-center space-x-2">
 		<label for="timerSeconds" class="text-lg font-bold">Timer L:</label>
-		<input
-			type="number"
-			id="timerSeconds"
-			bind:value={timerSeconds}
-			class="p-2 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
-		/>
+		<Select
+        id="timerSeconds"
+        bind:value={selectedTimer}
+        class="w-40 text-center text-black"
+    	>
+        {#each timerOptions as option}
+            <option value={option.value}>{option.label}</option>
+        {/each}
+    	</Select>
 	</div>
 	
 
