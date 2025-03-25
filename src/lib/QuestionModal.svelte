@@ -1,27 +1,43 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import TeamCard from './TeamCard.svelte';
 	import QuestionCard from './QuestionCard.svelte';
 
 	const dispatch = createEventDispatcher();
 	let { question, answer, points, teams, show = false, isAvailble, secondsTimer = 15 } = $props();
 	let startTimer = $state(false);
+	let currentSeconds = $state(secondsTimer); 
 
 	function handleDisable() {
 		dispatch('close');
 		dispatch('disableButton'); // Notify parent to disable button
 	}
 
-	$effect(() => {
-		setInterval(() => {
-			if (startTimer) {
-				secondsTimer -= 1;
-			}
-			if (secondsTimer <= 0) {
-				startTimer = false;
-			}
-		}, 1000);
-	});
+    $effect(() => {
+        let intervalId;
+
+        intervalId = setInterval(() => {
+            if (startTimer) {
+                currentSeconds -= 1;
+            }
+            if (currentSeconds <= 0) {
+                startTimer = false;
+            }
+        }, 1000);
+
+		return () => {
+            clearInterval(intervalId);
+        };
+    });
+
+    onMount(() => {
+        if (typeof window !== 'undefined') { 
+            const storedSeconds = localStorage.getItem('timerSeconds');
+            if (storedSeconds) {
+                currentSeconds = parseInt(storedSeconds);
+            }
+        }
+    });
 </script>
 
 {#if show}
@@ -30,7 +46,7 @@
 			<button
 				onclick={() => {
 					startTimer = false;
-					secondsTimer = 15;
+					currentSeconds = secondsTimer;
 					dispatch('close');
 				}}
 				class="absolute right-1 top-1 text-xl">❌</button
@@ -45,10 +61,10 @@
 						: 'border-red-950 bg-red-800 hover:bg-red-600'}"
 					onclick={() => {
 						startTimer = !startTimer;
-						if (secondsTimer <= 0) {
-							secondsTimer = 15; //This resets it back to 15 seconds
+						if (currentSeconds <= 0) {
+							currentSeconds = secondsTimer; // Reset to initial seconds
 						}
-					}}>{!startTimer ? 'Start' : 'Stop'} Time: {secondsTimer}</button
+					}}>{!startTimer ? 'Start' : 'Stop'} Time: {currentSeconds}</button
 				><button
 					class="w-1/2 p-2 border-4 border-solid border-yellow-950 bg-yellow-800 hover:bg-yellow-600"
 					onclick={() => {

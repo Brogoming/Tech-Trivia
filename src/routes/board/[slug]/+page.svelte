@@ -10,17 +10,20 @@
 	let gameSet = data.post.set;
 
 	let teams = $state([]);
+	let secondsTimer = $state()
 
 	onMount(() => {
 		if (browser) {
 			const storedTeams = localStorage.getItem('teams');
+			const storedTimerSeconds = localStorage.getItem('timerSeconds');
 			if (storedTeams) {
 				teams = JSON.parse(storedTeams);
 			}
+			if (storedTimerSeconds) {
+             secondsTimer = parseInt(storedTimerSeconds); 
+        	}
 		}
 	});
-
-	let secondsTimer = $state(15); //TODO: temporary
 
 	function endGame() {
 		teams = [...teams].sort((a, b) => b.points - a.points);

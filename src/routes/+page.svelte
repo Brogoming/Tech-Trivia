@@ -7,6 +7,7 @@
 
 	let selectedGame = $state('');
 	let startButtonText = $state('');
+	let timerSeconds = $state();
 	let numberOfTeams = $state(null);
 	let teams = $state([
 		{ name: 'team1', points: 0 },
@@ -32,6 +33,7 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
+			localStorage.setItem('timerSeconds', timerSeconds);
 			window.location.href = `${base}/board/${selectedGame}`;
 		} else {
 			alert('Please enter names for all teams');
@@ -113,6 +115,20 @@
 			{/each}
 		{/if}
 	</div>
+
+<div style="margin-bottom: 40px;">
+	
+</div>
+	<div class="flex items-center space-x-2">
+		<label for="timerSeconds" class="text-lg font-bold">Timer L:</label>
+		<input
+			type="number"
+			id="timerSeconds"
+			bind:value={timerSeconds}
+			class="p-2 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
+		/>
+	</div>
+	
 
 	<div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
 		<button
