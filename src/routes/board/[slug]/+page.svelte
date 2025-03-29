@@ -28,11 +28,11 @@
 	}
 </script>
 
-<div class="grid grid-cols-3 p-2 justify-center text-4xl">
+<div class="grid grid-cols-3 p-2 justify-center sm:text-3xl md:text-4xl lg:text-5xl">
 	<a class="mr-auto" href="{base}/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
 	<a
-		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-base my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-lg lg:text-3xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
 		onclick={endGame}
 		href="{base}/congrats">End Game</a
 	>
@@ -42,7 +42,9 @@
 	<div class="grid grid-cols-6">
 		{#each Object.keys(gameSet) as category}
 			<div>
-				<div class="categoryCell border-4 border-solid border-black py-9 text-center text-2xl">
+				<div
+					class="categoryCell border-4 border-solid border-black py-9 text-center text-base xl:text-xl 2xl:text-2xl"
+				>
 					{category}
 				</div>
 				{#each Object.keys(gameSet[category]) as question}
