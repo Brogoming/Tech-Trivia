@@ -129,7 +129,7 @@
 	
 </div>
 	<div class="flex items-center space-x-2">
-		<label for="timerSeconds" class="text-lg font-bold">Timer L:</label>
+		<label for="timerSeconds" class="text-lg font-bold">Time Per Question:</label>
 		<Select
         id="timerSeconds"
         bind:value={selectedTimer}
