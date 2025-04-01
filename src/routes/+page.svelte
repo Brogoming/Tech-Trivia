@@ -1,18 +1,16 @@
 <script>
 	import { base } from '$app/paths';
+	import { Select } from 'flowbite-svelte';
 	let { data } = $props();
 
-	import { Button, Dropdown, Select } from 'flowbite-svelte';
-	import { ChevronDownOutline } from 'flowbite-svelte-icons';
-
 	let timerOptions = [
-        { value: 5, label: '5 seconds' },
-        { value: 10, label: '10 seconds' },
-        { value: 15, label: '15 seconds' },
-        { value: 20, label: '20 seconds' },
-        { value: 25, label: '25 seconds' },
-        { value: 30, label: '30 seconds' }
-    ];
+		{ value: 5, label: '5 seconds' },
+		{ value: 10, label: '10 seconds' },
+		{ value: 15, label: '15 seconds' },
+		{ value: 20, label: '20 seconds' },
+		{ value: 25, label: '25 seconds' },
+		{ value: 30, label: '30 seconds' }
+	];
 
 	let selectedGame = $state('');
 	let startButtonText = $state('');
@@ -24,10 +22,10 @@
 		{ name: 'team3', points: 0 }
 	]);
 
-	function selectGame(slug) {
-		console.log('Selecting game:', slug);
-		selectedGame = slug;
-		startButtonText = `Start ${slug}`;
+	function selectGame() {
+		console.log('Selecting game:', selectedGame);
+		selectedGame = selectedGame;
+		startButtonText = `Start ${selectedGame}`;
 	}
 
 	function startGame() {
@@ -67,91 +65,71 @@
 	}
 </script>
 
-<div class="flex flex-col">
-	<div class="flex w-1/2 mx-auto p-4">
-		<div class="flex-initial font-bold px-4 py-2 m-2 mx-auto p-4">
-			<h1 class="text-8xl">Tech Trivia</h1>
-		</div>
-	</div>
-
-	<div class="flex p-4 absolute right-5 top-1/2 transform -translate-y-1/2">
-		<div class="flex items-center">
-			<Button>Select a Game Set<ChevronDownOutline class="w-6 h-6 ms-2 text-white" /></Button>
-		</div>
-		<Dropdown>
-			<ul>
-				{#each data.games as { slug }}
-					<li>
-						<button
-							class={`py-2 px-4 ${selectedGame === slug ? 'bg-blue-500 text-white' : 'hover:bg-blue-700'}`}
-							onclick={() => selectGame(slug)}
-						>
-							{slug}
-						</button>
-					</li>
-				{/each}
-			</ul>
-		</Dropdown>
-	</div>
-
-	<div class="flex flex-col items-start space-y-4">
-		<div class="flex items-center space-x-2">
-			<label for="numberOfTeams" class="text-lg font-bold">How many teams?</label>
-			<Select
-				id="numberOfTeams"
-				bind:value={numberOfTeams}
-				on:change={updateTeams}
-				class="w-20 text-center text-black"
-			>
-				<option value={null}>Select</option>
-				<option value={1}>1</option>
-				<option value={2}>2</option>
-				<option value={3}>3</option>
-			</Select>
-		</div>
-
+<div class="flex font-bold px-4 py-2 m-2 justify-center">
+	<h1 class="text-8xl">Tech Trivia</h1>
+</div>
+<div class="grid grid-cols-2 text-xl">
+	<div>
+		<label for="numberOfTeams" class="font-bold">How many teams?</label>
+		<Select
+			id="numberOfTeams"
+			bind:value={numberOfTeams}
+			on:change={updateTeams}
+			class="w-fit text-center text-black"
+		>
+			<option value={null}>Select</option>
+			<option value={1}>1</option>
+			<option value={2}>2</option>
+			<option value={3}>3</option>
+		</Select>
 		{#if numberOfTeams !== null}
 			{#each teams as team, i}
-				<div class="flex items-center space-x-2">
+				<div class="flex items-center space-x-2 space-y-2">
 					<label for="team{i + 1}" class="text-lg font-bold">Team {i + 1}:</label>
 					<input
 						type="text"
 						id="team{i + 1}"
 						bind:value={team.name}
-						class="flex-grow p-2 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
+						class="flex p-2 w-1/3 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
 					/>
 				</div>
 			{/each}
 		{/if}
 	</div>
-
-<div style="margin-bottom: 40px;">
-	
+	<div class="mr-0 ml-auto space-y-2">
+		<div>
+			<label for="selectedGame" class="font-bold">Select a Game Set: </label>
+			<Select
+				id="selectedGame"
+				bind:value={selectedGame}
+				on:change={selectGame}
+				class="w-fit text-center text-black"
+			>
+				<option value={null}>Select</option>
+				{#each data.games as { slug }}
+					<option value={slug}>{slug}</option>
+				{/each}
+			</Select>
+		</div>
+		<div>
+			<label for="timerSeconds" class="font-bold">Time Per Question:</label>
+			<Select id="timerSeconds" bind:value={selectedTimer} class="w-fit text-center text-black">
+				{#each timerOptions as option}
+					<option value={option.value}>{option.label}</option>
+				{/each}
+			</Select>
+		</div>
+	</div>
 </div>
-	<div class="flex items-center space-x-2">
-		<label for="timerSeconds" class="text-lg font-bold">Time Per Question:</label>
-		<Select
-        id="timerSeconds"
-        bind:value={selectedTimer}
-        class="w-40 text-center text-black"
-    	>
-        {#each timerOptions as option}
-            <option value={option.value}>{option.label}</option>
-        {/each}
-    	</Select>
-	</div>
-	
-
-	<div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
-		<button
-			class="w-full md:w-auto relative hover:bg-blue-700 text-white font-bold py-2 px-4 text-5xl"
-			onclick={startGame}
-		>
-			{#if startButtonText === ''}
-				Please select a game
-			{:else}
-				{startButtonText}
-			{/if}
-		</button>
-	</div>
+<div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
+	<button
+		class="w-full md:w-auto relative hover:bg-blue-700 text-white font-bold py-2 px-4 text-5xl"
+		onclick={startGame}
+	>
+		{#if startButtonText === ''}
+			Please select a game
+		{:else}
+			{startButtonText}
+		{/if}
+	</button>
 </div>
