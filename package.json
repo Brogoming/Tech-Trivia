@@ -3,6 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"description": "Tech Trivia is a jeopardy like game where up to 3 teams compete by answering trivia questions based on computer science and technology, each question answered correctly by a team scores points depending on the question. The team with the highest score wins.",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
