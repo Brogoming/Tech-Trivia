@@ -1,6 +1,8 @@
 <script>
 	import { base } from '$app/paths';
 	import { Select } from 'flowbite-svelte';
+	import { fly } from 'svelte/transition';
+	import { expoInOut } from 'svelte/easing';
 	let { data } = $props();
 
 	let timerOptions = [
@@ -15,7 +17,7 @@
 	let selectedGame = $state('');
 	let startButtonText = $state('');
 	let selectedTimer = $state(timerOptions[0].value);
-	let numberOfTeams = $state(null);
+	let numberOfTeams = $state(0);
 	let teams = $state([
 		{ name: 'team1', points: 0 },
 		{ name: 'team2', points: 0 },
@@ -77,24 +79,26 @@
 			on:change={updateTeams}
 			class="w-fit text-center text-black"
 		>
-			<option value={null}>Select</option>
+			<option value={0}>Select</option>
 			<option value={1}>1</option>
 			<option value={2}>2</option>
 			<option value={3}>3</option>
 		</Select>
-		{#if numberOfTeams !== null}
-			{#each teams as team, i}
-				<div class="flex items-center space-x-2 space-y-2">
-					<label for="team{i + 1}" class="text-lg font-bold">Team {i + 1}:</label>
-					<input
-						type="text"
-						id="team{i + 1}"
-						bind:value={team.name}
-						class="flex p-2 w-1/3 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
-					/>
-				</div>
-			{/each}
-		{/if}
+		{#each teams.slice(0, numberOfTeams) as team, i}
+			<div
+				class="flex items-center space-x-2 space-y-2"
+				in:fly={{ y: -25, duration: 500, delay: 500, easing: expoInOut }}
+				out:fly={{ y: -25, duration: 500, delay: 500, easing: expoInOut }}
+			>
+				<label for="team{i + 1}" class="text-lg font-bold">Team {i + 1}:</label>
+				<input
+					type="text"
+					id="team{i + 1}"
+					bind:value={team.name}
+					class="flex p-2 w-1/3 border rounded bg-blue-500 text-white placeholder-white focus:outline-none focus:ring focus:ring-blue-300"
+				/>
+			</div>
+		{/each}
 	</div>
 	<div class="mr-0 ml-auto space-y-2">
 		<div>
@@ -105,7 +109,7 @@
 				on:change={selectGame}
 				class="w-fit text-center text-black"
 			>
-				<option value={null}>Select</option>
+				<!-- <option value={null}>Select</option> -->
 				{#each data.games as { slug }}
 					<option value={slug}>{slug}</option>
 				{/each}
