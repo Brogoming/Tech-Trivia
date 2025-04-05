@@ -102,7 +102,7 @@
 	</div>
 	<div class="mr-0 ml-auto space-y-2">
 		<div>
-			<label for="selectedGame" class="font-bold">Select a Game Set: </label>
+			<label for="selectedGame" class="font-bold">Select a Game Set:</label>
 			<Select
 				id="selectedGame"
 				bind:value={selectedGame}
