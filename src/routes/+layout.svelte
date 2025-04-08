@@ -3,7 +3,7 @@
 	let { children } = $props();
 </script>
 
-<div class="bgGradient h-screen bg-cover bg-fixed bg-center">
+<div class="bgGradient h-full min-h-screen bg-cover bg-fixed bg-center">
 	{@render children()}
 </div>
 

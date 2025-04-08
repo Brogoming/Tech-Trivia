@@ -5,8 +5,18 @@
 	import { Button, Dropdown, Select } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 
+	let timerOptions = [
+        { value: 5, label: '5 seconds' },
+        { value: 10, label: '10 seconds' },
+        { value: 15, label: '15 seconds' },
+        { value: 20, label: '20 seconds' },
+        { value: 25, label: '25 seconds' },
+        { value: 30, label: '30 seconds' }
+    ];
+
 	let selectedGame = $state('');
 	let startButtonText = $state('');
+	let selectedTimer = $state(timerOptions[0].value);
 	let numberOfTeams = $state(null);
 	let teams = $state([
 		{ name: 'team1', points: 0 },
@@ -32,6 +42,7 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
+			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
 		} else {
 			alert('Please enter names for all teams');
@@ -56,7 +67,7 @@
 	}
 </script>
 
-<div class="min-h-screen flex flex-col">
+<div class="flex flex-col">
 	<div class="flex w-1/2 mx-auto p-4">
 		<div class="flex-initial font-bold px-4 py-2 m-2 mx-auto p-4">
 			<h1 class="text-8xl">Tech Trivia</h1>
@@ -113,6 +124,23 @@
 			{/each}
 		{/if}
 	</div>
+
+<div style="margin-bottom: 40px;">
+	
+</div>
+	<div class="flex items-center space-x-2">
+		<label for="timerSeconds" class="text-lg font-bold">Time Per Question:</label>
+		<Select
+        id="timerSeconds"
+        bind:value={selectedTimer}
+        class="w-40 text-center text-black"
+    	>
+        {#each timerOptions as option}
+            <option value={option.value}>{option.label}</option>
+        {/each}
+    	</Select>
+	</div>
+	
 
 	<div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
 		<button
