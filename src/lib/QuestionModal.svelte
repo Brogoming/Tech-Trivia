@@ -6,38 +6,38 @@
 	const dispatch = createEventDispatcher();
 	let { question, answer, points, teams, show = false, isAvailble, secondsTimer = 15 } = $props();
 	let startTimer = $state(false);
-	let currentSeconds = $state(secondsTimer); 
+	let currentSeconds = $state(secondsTimer);
 
 	function handleDisable() {
 		dispatch('close');
 		dispatch('disableButton'); // Notify parent to disable button
 	}
 
-    $effect(() => {
-        let intervalId;
+	$effect(() => {
+		let intervalId;
 
-        intervalId = setInterval(() => {
-            if (startTimer) {
-                currentSeconds -= 1;
-            }
-            if (currentSeconds <= 0) {
-                startTimer = false;
-            }
-        }, 1000);
+		intervalId = setInterval(() => {
+			if (startTimer) {
+				currentSeconds -= 1;
+			}
+			if (currentSeconds <= 0) {
+				startTimer = false;
+			}
+		}, 1000);
 
 		return () => {
-            clearInterval(intervalId);
-        };
-    });
+			clearInterval(intervalId);
+		};
+	});
 
-    onMount(() => {
-        if (typeof window !== 'undefined') { 
-            const storedSeconds = localStorage.getItem('timerSeconds');
-            if (storedSeconds) {
-                currentSeconds = parseInt(storedSeconds);
-            }
-        }
-    });
+	onMount(() => {
+		if (typeof window !== 'undefined') {
+			const storedSeconds = localStorage.getItem('timerSeconds');
+			if (storedSeconds) {
+				currentSeconds = parseInt(storedSeconds);
+			}
+		}
+	});
 </script>
 
 {#if show}
@@ -56,7 +56,7 @@
 			</div>
 			<div class="flex">
 				<button
-					class="w-1/2 p-2 border-4 border-solid border-lime-950 bg-lime-800 hover:bg-lime-600 {!startTimer
+					class="transition duration-300 w-1/2 p-2 border-4 border-solid border-lime-950 bg-lime-800 hover:bg-lime-600 {!startTimer
 						? 'border-lime-950 bg-lime-800 hover:bg-lime-600'
 						: 'border-red-950 bg-red-800 hover:bg-red-600'}"
 					onclick={() => {
@@ -66,7 +66,7 @@
 						}
 					}}>{!startTimer ? 'Start' : 'Stop'} Time: {currentSeconds}</button
 				><button
-					class="w-1/2 p-2 border-4 border-solid border-yellow-950 bg-yellow-800 hover:bg-yellow-600"
+					class="transition duration-300 w-1/2 p-2 border-4 border-solid border-yellow-950 bg-yellow-800 hover:bg-yellow-600"
 					onclick={() => {
 						handleDisable();
 					}}>No Answer</button
@@ -75,7 +75,7 @@
 			<div class="space-y-2">
 				{#each teams as team}
 					<button
-						class="w-full rounded-xl border-4 border-solid border-black bg-gray-500 py-2 text-2xl text-black hover:bg-gray-400"
+						class="transition duration-300 w-full rounded-xl border-4 border-solid border-black bg-gray-500 py-2 text-2xl text-black hover:bg-gray-400"
 						onclick={() => {
 							team.points += points;
 							handleDisable();

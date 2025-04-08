@@ -109,7 +109,7 @@
 <input type="file" id="jsonUpload" accept=".json" onchange={handleFileUpload} class="hidden" />
 
 <div class="flex font-bold px-4 py-2 m-2 justify-center">
-	<h1 class="text-8xl">Tech Trivia</h1>
+	<h1 class="text-8xl glow">Tech Trivia</h1>
 </div>
 <div class="grid grid-cols-2 text-xl">
 	<div>
@@ -169,7 +169,7 @@
 </div>
 <div class="fixed bottom-10 left-0 right-0 flex justify-center w-full">
 	<button
-		class="w-full md:w-auto relative hover:bg-blue-700 text-white font-bold py-2 px-4 text-5xl"
+		class="transition border-4 border-solid border-blue-900 rounded-md p-4 text-lg lg:text-5xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600 hover:text-blue-900 duration-300"
 		onclick={startGame}
 	>
 		{#if startButtonText === ''}
@@ -179,3 +179,22 @@
 		{/if}
 	</button>
 </div>
+
+<style>
+	.glow {
+		text-align: center;
+		animation: glow 1s ease-in-out infinite alternate;
+	}
+
+	@keyframes glow {
+		from {
+			text-shadow: 0 0 30px #005ce6;
+		}
+		to {
+			text-shadow:
+				0 0 40px #005ce6,
+				0 0 50px #005ce6,
+				0 0 60px #005ce6;
+		}
+	}
+</style>

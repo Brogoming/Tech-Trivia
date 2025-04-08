@@ -11,32 +11,31 @@
 	let gameSet = $state(data.post.set);
 	let isCustomGame = $state(false);
 	let teams = $state([]);
-	let secondsTimer = $state()
-
+	let secondsTimer = $state();
 
 	onMount(() => {
-    if (browser) {
-      // Check if this is a custom game
-      const uploadedJsonSlug = localStorage.getItem("uploadedJson");
-      const isCustomGame = data.post.slug === 'Custom Game';
+		if (browser) {
+			// Check if this is a custom game
+			const uploadedJsonSlug = localStorage.getItem('uploadedJson');
+			const isCustomGame = data.post.slug === 'Custom Game';
 
-      if (isCustomGame && uploadedJsonSlug) {
-        try {
-          gameSet = JSON.parse(uploadedJsonSlug);
-        } catch (e) {
-          console.error("Invalid custom game data:", e);
-        }
-      }
+			if (isCustomGame && uploadedJsonSlug) {
+				try {
+					gameSet = JSON.parse(uploadedJsonSlug);
+				} catch (e) {
+					console.error('Invalid custom game data:', e);
+				}
+			}
 
-	        // Load teams and timer
+			// Load teams and timer
 			const storedTeams = localStorage.getItem('teams');
 			const storedTimerSeconds = localStorage.getItem('timerSeconds');
 			if (storedTeams) {
 				teams = JSON.parse(storedTeams);
 			}
 			if (storedTimerSeconds) {
-             secondsTimer = parseInt(storedTimerSeconds); 
-        	}
+				secondsTimer = parseInt(storedTimerSeconds);
+			}
 		}
 	});
 
@@ -50,7 +49,7 @@
 	<a class="mr-auto" href="{base}/"><Icon icon="mdi-light:home" /></a>
 	<h1 class="text-center">{data.post.slug}</h1>
 	<a
-		class="ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-lg lg:text-3xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600"
+		class="transition duration-300 ml-auto border-4 border-solid border-blue-900 rounded-md px-4 text-lg lg:text-3xl my-auto bg-blue-700 hover:bg-blue-400 hover:border-blue-600 hover:text-blue-900"
 		onclick={endGame}
 		href="{base}/congrats">End Game</a
 	>
