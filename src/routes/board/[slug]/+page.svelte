@@ -5,15 +5,30 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
+	import { page } from '$app/stores';
 
 	let { data } = $props();
-	let gameSet = data.post.set;
-
+	let gameSet = $state(data.post.set);
+	let isCustomGame = $state(false);
 	let teams = $state([]);
 	let secondsTimer = $state()
 
+
 	onMount(() => {
-		if (browser) {
+    if (browser) {
+      // Check if this is a custom game
+      const uploadedJsonSlug = localStorage.getItem("uploadedJson");
+      const isCustomGame = data.post.slug === 'Custom Game';
+
+      if (isCustomGame && uploadedJsonSlug) {
+        try {
+          gameSet = JSON.parse(uploadedJsonSlug);
+        } catch (e) {
+          console.error("Invalid custom game data:", e);
+        }
+      }
+
+	        // Load teams and timer
 			const storedTeams = localStorage.getItem('teams');
 			const storedTimerSeconds = localStorage.getItem('timerSeconds');
 			if (storedTeams) {
