@@ -28,6 +28,9 @@
 		console.log('Selecting game:', selectedGame);
 		selectedGame = selectedGame;
 		startButtonText = `Start ${selectedGame}`;
+		if (selectedGame === 'custom') {
+			triggerFileUpload();
+		}
 	}
 
 	function startGame() {
@@ -43,7 +46,13 @@
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
 			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
+			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
+			if (selectedGame === 'custom') {
+				window.location.href = `${base}/board/custom`;
+			} else {
+				window.location.href = `${base}/board/${selectedGame}`;
+			}
 		} else {
 			alert('Please enter names for all teams');
 		}
@@ -65,7 +74,39 @@
 			});
 		}
 	}
+
+	let uploadedData = null;
+
+	function handleFileUpload(event) {
+		const file = event.target.files[0];
+		if (file && file.type === 'application/json') {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				try {
+					const jsonData = JSON.parse(e.target.result);
+					localStorage.setItem('uploadedJson', JSON.stringify(jsonData));
+					uploadedData = jsonData;
+					alert('JSON file successfully uploaded and saved to local storage!');
+					selectedGame = 'custom';
+				} catch (error) {
+					alert('Invalid JSON format. Please upload a valid JSON file.');
+				}
+			};
+			reader.readAsText(file);
+		} else {
+			alert('Please upload a valid JSON file.');
+		}
+	}
+
+	function triggerFileUpload() {
+		const fileInputElement = document.getElementById('jsonUpload');
+		if (fileInputElement) {
+			fileInputElement.click();
+		}
+	}
 </script>
+
+<input type="file" id="jsonUpload" accept=".json" onchange={handleFileUpload} class="hidden" />
 
 <div class="flex font-bold px-4 py-2 m-2 justify-center">
 	<h1 class="text-8xl">Tech Trivia</h1>
@@ -113,6 +154,7 @@
 				{#each data.games as { slug }}
 					<option value={slug}>{slug}</option>
 				{/each}
+				<option value={'custom'}>Custom</option>
 			</Select>
 		</div>
 		<div>
