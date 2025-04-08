@@ -14,18 +14,9 @@
         { value: 30, label: '30 seconds' }
     ];
 
-	let timerOptions = [
-        { value: 5, label: '5 seconds' },
-        { value: 10, label: '10 seconds' },
-        { value: 15, label: '15 seconds' },
-        { value: 20, label: '20 seconds' },
-        { value: 25, label: '25 seconds' },
-        { value: 30, label: '30 seconds' }
-    ];
 
 	let selectedGame = $state('');
 	let startButtonText = $state('');
-	let selectedTimer = $state(timerOptions[0].value);
 	let selectedTimer = $state(timerOptions[0].value);
 	let numberOfTeams = $state(null);
 	let teams = $state([
