@@ -39,6 +39,13 @@
 			alert('Please select a game');
 			return;
 		}
+		if (selectedGame === 'custom') {
+			const uploadedJson = localStorage.getItem('uploadedJson');
+			if (!uploadedJson) {
+				alert('Please upload a JSON file for the custom game.');
+				return;
+			}
+		}
 		if (numberOfTeams === null) {
 			alert('Please select the number of teams');
 			return;
@@ -46,7 +53,6 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			localStorage.setItem('teams', JSON.stringify(validTeams));
-			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
 			if (selectedGame === 'custom') {
@@ -77,27 +83,82 @@
 	}
 
 	let uploadedData = null;
+ 
+function validateJsonSchema(jsonData) {
+  const errors = [];
+  
+  if (typeof jsonData !== 'object' || jsonData === null) {
+    errors.push("Root should be an object");
+    return { isValid: false, errors };
+  }
 
-	function handleFileUpload(event) {
-	  const file = event.target.files[0];
-	  if (file && file.type === "application/json") {
-	    const reader = new FileReader();
-	    reader.onload = (e) => {
-	      try {
-	        const jsonData = JSON.parse(e.target.result);
-	        localStorage.setItem("uploadedJson", JSON.stringify(jsonData));
-	        uploadedData = jsonData;
-	        alert("JSON file successfully uploaded and saved to local storage!");
-	        selectedGame = 'custom';
-	      } catch (error) {
-	        alert("Invalid JSON format. Please upload a valid JSON file.");
-	      }
-	    };
-	    reader.readAsText(file);
-	  } else {
-	    alert("Please upload a valid JSON file.");
-	  }
-	}
+  const categories = Object.keys(jsonData);
+  const validPoints = new Set([100, 200, 300, 400, 500]);
+
+  categories.forEach(category => {
+    const questions = jsonData[category];
+    
+    // Validate category structure
+    if (typeof questions !== 'object') {
+      errors.push(`Category '${category}' should be an object`);
+      return;
+    }
+
+    const questionEntries = Object.entries(questions);
+    
+    // Check question count per category
+    if (questionEntries.length !== 5) {
+      errors.push(`Category '${category}' must have exactly 5 questions`);
+    }
+
+    questionEntries.forEach(([question, data]) => {
+      // Validate question structure
+      if (!data.answer || typeof data.answer !== 'string') {
+        errors.push(`Question '${question}' in category '${category}' must have an answer string`);
+      }
+      
+      if (!validPoints.has(data.points)) {
+        errors.push(
+          `Question '${question}' in category '${category}' has invalid points (${data.points}). ` +
+          `Must be one of: 100, 200, 300, 400, 500`
+        );
+      }
+    });
+  });
+
+  return {
+    isValid: errors.length === 0,
+    errors
+  };
+}
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (file && file.type === "application/json") {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const jsonData = JSON.parse(e.target.result);
+        const validation = validateJsonSchema(jsonData);
+        
+        if (!validation.isValid) {
+          alert(`Invalid JSON schema:\n${validation.errors.join('\n')}`);
+          return;
+        }
+
+        localStorage.setItem("uploadedJson", JSON.stringify(jsonData));
+        uploadedData = jsonData;
+        alert("JSON file successfully uploaded and validated!");
+        selectedGame = 'custom';
+        startButtonText = 'Start custom';
+      } catch (error) {
+        alert(`JSON Error: ${error.message}`);
+      }
+    };
+    reader.readAsText(file);
+  } else {
+    alert("Please upload a valid JSON file.");
+  }
+}
 
 	function triggerFileUpload() {
 	  const fileInputElement = document.getElementById('jsonUpload');
@@ -108,6 +169,17 @@
 </script>
 
 <div class="flex flex-col">
+
+	<div class="absolute top-[90px] right-[75px]">
+        <a
+            href={`${base}/template.json`}
+            download="custom-game-template.json"
+            class="p-2 bg-blue-600 text-white rounded hover:bg-blue-700 shadow"
+        >
+            Download JSON Template
+        </a>
+    </div>
+
     <div class="flex w-1/2 mx-auto p-4">
         <div class="flex-initial font-bold px-4 py-2 m-2 mx-auto p-4">
             <h1 class="text-8xl">Tech Trivia</h1>
