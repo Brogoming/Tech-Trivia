@@ -93,7 +93,7 @@
 		}
 
 		const categories = Object.keys(jsonData);
-		const validPoints = new Set([100, 200, 300, 400, 500]);
+		const validPoints = new Set([100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]);
 
 		categories.forEach((category) => {
 			const questions = jsonData[category];
@@ -107,8 +107,8 @@
 			const questionEntries = Object.entries(questions);
 
 			// Check question count per category
-			if (questionEntries.length !== 5) {
-				errors.push(`Category '${category}' must have exactly 5 questions`);
+			if (questionEntries.length < 5) {
+				errors.push(`Category '${category}' must have at least 5 questions`);
 			}
 
 			questionEntries.forEach(([question, data]) => {
@@ -122,7 +122,7 @@
 				if (!validPoints.has(data.points)) {
 					errors.push(
 						`Question '${question}' in category '${category}' has invalid points (${data.points}). ` +
-							`Must be one of: 100, 200, 300, 400, 500`
+							`Must be one of: 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000`
 					);
 				}
 			});
@@ -195,7 +195,7 @@
 				in:fly={{ y: -25, duration: 500, delay: 500, easing: expoInOut }}
 				out:fly={{ y: -25, duration: 500, delay: 500, easing: expoInOut }}
 			>
-				<label for="team{i + 1}" class="text-lg font-bold">Team {i + 1}:</label>
+				<label for="team{i + 1}" class="text-xl font-bold">Team {i + 1}:</label>
 				<input
 					type="text"
 					id="team{i + 1}"
@@ -205,7 +205,16 @@
 			</div>
 		{/each}
 	</div>
-	<div class="mr-0 ml-auto space-y-2">
+	<div class="justify-items-end space-y-4">
+		<div>
+			<a
+				href={`${base}/template.json`}
+				download="custom-game-template.json"
+				class="transition border-4 border-solid border-blue-900 rounded-md p-2 bg-blue-700 hover:bg-blue-400 hover:border-blue-600 hover:text-blue-900 duration-300"
+			>
+				Download JSON Template
+			</a>
+		</div>
 		<div>
 			<label for="selectedGame" class="font-bold">Select a Game Set:</label>
 			<Select

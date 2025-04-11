@@ -15,13 +15,13 @@
 
 ## Important Details
 
-This site is not hosted anywhere, if you wish to play the game you will have to run this on your local machine. In order to do so make sure you have Node version 22 installed. Once you have it installed open this project in any EDI of you choice. Make sure you are in the root folder before running `npm i` in the terminal, this will install all of the npm packages used to help create this project. After all that is installed in the terminal type `npm run dev` and hit enter, this will start teh program and give you a link you can click on. Good job, you can now host your own Tech Trivia game!!!
+This site is not hosted anywhere, if you wish to play the game you will have to run this on your local machine. In order to do so make sure you have **Node version 22** installed. Once you have it installed open this project in any EDI of you choice. Make sure you are in the root folder before running `npm i` in the terminal, this will install all of the npm packages used to help create this project. After all that is installed in the terminal type `npm run dev` and hit enter, this will start teh program and give you a link you can click on. Good job, you can now host your own Tech Trivia game!!!
 
 ## How to play
 
 ### Home Page
 
-On the home page the host will set the parameters of the game by selecting the **Number of Teams** participating, editing each teams name, seting the amount of **Time per Question**, and **Selecting the Game Set** to play. There are 6 pre-made sets, each unique questions and categories that span across computer science and technology. Each set contains 30 questions, 5 questions per category. There is also an option to create a custom set which when selected will allow you to download a JavaScript file template for user to edit. After the file is edited properly you can upload the file back and select it as a new option. Once all the parameters are set you can now start the game. If there is a parameter not properly set a pop up will show up saying that you missed something.
+On the home page the host will set the parameters of the game by selecting the **Number of Teams** participating, editing each teams name, seting the amount of **Time per Question**, and **Selecting the Game Set** to play. There are 6 pre-made sets, each unique questions and categories that span across computer science and technology. Each set contains 30 questions, 5 questions per category. There is also an option to create a custom set, first make sure you download the JSON template file and use that as a base to make your own game, once you have it all set go to the **Select the Game Set** drop down and click custom, click on the JSON file to upload. Once that is all set and done you can now play your custom game. After the file is edited properly you can upload the file back and select it as a new option. Once all the parameters are set you can now start the game. If there is a parameter not properly set a pop up will show up saying that you missed something.
 
 ### Board Page
 
