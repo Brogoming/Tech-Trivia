@@ -66,7 +66,7 @@ export default {
 			points: 500
 		}
 	},
-	'Computer Science Fundamentals': {
+	'CS Fundamentals': {
 		'The smallest unit of data in computing is called this.': {
 			answer: 'What is a bit?',
 			points: 100
