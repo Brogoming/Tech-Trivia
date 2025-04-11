@@ -38,6 +38,13 @@
 			alert('Please select a game');
 			return;
 		}
+		if (selectedGame === 'custom') {
+			const uploadedJson = localStorage.getItem('uploadedJson');
+			if (!uploadedJson) {
+				alert('Please upload a JSON file for the custom game.');
+				return;
+			}
+		}
 		if (numberOfTeams === null) {
 			alert('Please select the number of teams');
 			return;
@@ -77,6 +84,55 @@
 
 	let uploadedData = null;
 
+	function validateJsonSchema(jsonData) {
+		const errors = [];
+
+		if (typeof jsonData !== 'object' || jsonData === null) {
+			errors.push('Root should be an object');
+			return { isValid: false, errors };
+		}
+
+		const categories = Object.keys(jsonData);
+		const validPoints = new Set([100, 200, 300, 400, 500]);
+
+		categories.forEach((category) => {
+			const questions = jsonData[category];
+
+			// Validate category structure
+			if (typeof questions !== 'object') {
+				errors.push(`Category '${category}' should be an object`);
+				return;
+			}
+
+			const questionEntries = Object.entries(questions);
+
+			// Check question count per category
+			if (questionEntries.length !== 5) {
+				errors.push(`Category '${category}' must have exactly 5 questions`);
+			}
+
+			questionEntries.forEach(([question, data]) => {
+				// Validate question structure
+				if (!data.answer || typeof data.answer !== 'string') {
+					errors.push(
+						`Question '${question}' in category '${category}' must have an answer string`
+					);
+				}
+
+				if (!validPoints.has(data.points)) {
+					errors.push(
+						`Question '${question}' in category '${category}' has invalid points (${data.points}). ` +
+							`Must be one of: 100, 200, 300, 400, 500`
+					);
+				}
+			});
+		});
+
+		return {
+			isValid: errors.length === 0,
+			errors
+		};
+	}
 	function handleFileUpload(event) {
 		const file = event.target.files[0];
 		if (file && file.type === 'application/json') {
@@ -84,12 +140,20 @@
 			reader.onload = (e) => {
 				try {
 					const jsonData = JSON.parse(e.target.result);
+					const validation = validateJsonSchema(jsonData);
+
+					if (!validation.isValid) {
+						alert(`Invalid JSON schema:\n${validation.errors.join('\n')}`);
+						return;
+					}
+
 					localStorage.setItem('uploadedJson', JSON.stringify(jsonData));
 					uploadedData = jsonData;
-					alert('JSON file successfully uploaded and saved to local storage!');
+					alert('JSON file successfully uploaded and validated!');
 					selectedGame = 'custom';
+					startButtonText = 'Start custom';
 				} catch (error) {
-					alert('Invalid JSON format. Please upload a valid JSON file.');
+					alert(`JSON Error: ${error.message}`);
 				}
 			};
 			reader.readAsText(file);
@@ -188,9 +252,9 @@
 
 	@keyframes glow {
 		from {
-			text-shadow: 
-			0 0 20px #005ce6,
-			0 0 30px #005ce6;
+			text-shadow:
+				0 0 20px #005ce6,
+				0 0 30px #005ce6;
 		}
 		to {
 			text-shadow:
