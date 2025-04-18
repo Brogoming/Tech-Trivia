@@ -14,7 +14,7 @@
 
 	onMount(() => {
 		if (browser) {
-			const storedTeams = localStorage.getItem('teams');
+			const storedTeams = sessionStorage.getItem('teams');
 			if (storedTeams) {
 				teams = JSON.parse(storedTeams);
 			}

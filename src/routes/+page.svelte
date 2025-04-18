@@ -39,7 +39,7 @@
 			return;
 		}
 		if (selectedGame === 'custom') {
-			const uploadedJson = localStorage.getItem('uploadedJson');
+			const uploadedJson = sessionStorage.getItem('uploadedJson');
 			if (!uploadedJson) {
 				alert('Please upload a JSON file for the custom game.');
 				return;
@@ -51,9 +51,9 @@
 		}
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
-			localStorage.setItem('teams', JSON.stringify(validTeams));
-			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
-			localStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
+			sessionStorage.setItem('teams', JSON.stringify(validTeams));
+			sessionStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
+			sessionStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
 			if (selectedGame === 'custom') {
 				window.location.href = `${base}/board/custom`;
@@ -134,11 +134,11 @@
 		};
 	}
 	function handleFileUpload(event) {
-		const file = event.target.files[0];
-		if (file && file.type === 'application/json') {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				try {
+		try {
+			const file = event.target.files[0];
+			if (file && file.type === 'application/json') {
+				const reader = new FileReader();
+				reader.onload = (e) => {
 					const jsonData = JSON.parse(e.target.result);
 					const validation = validateJsonSchema(jsonData);
 
@@ -147,18 +147,18 @@
 						return;
 					}
 
-					localStorage.setItem('uploadedJson', JSON.stringify(jsonData));
+					sessionStorage.setItem('uploadedJson', JSON.stringify(jsonData));
 					uploadedData = jsonData;
 					alert('JSON file successfully uploaded and validated!');
 					selectedGame = 'custom';
 					startButtonText = 'Start custom';
-				} catch (error) {
-					alert(`JSON Error: ${error.message}`);
-				}
-			};
-			reader.readAsText(file);
-		} else {
-			alert('Please upload a valid JSON file.');
+				};
+				reader.readAsText(file);
+			} else {
+				alert('Please upload a valid JSON file.');
+			}
+		} catch (error) {
+			alert(`JSON Error: ${error.message}`);
 		}
 	}
 

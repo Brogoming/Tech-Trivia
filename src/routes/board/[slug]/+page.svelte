@@ -5,18 +5,16 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
-	import { page } from '$app/stores';
 
 	let { data } = $props();
 	let gameSet = $state(data.post.set);
-	let isCustomGame = $state(false);
 	let teams = $state([]);
 	let secondsTimer = $state();
 
 	onMount(() => {
 		if (browser) {
 			// Check if this is a custom game
-			const uploadedJsonSlug = localStorage.getItem('uploadedJson');
+			const uploadedJsonSlug = sessionStorage.getItem('uploadedJson');
 			const isCustomGame = data.post.slug === 'Custom Game';
 
 			if (isCustomGame && uploadedJsonSlug) {
@@ -28,8 +26,8 @@
 			}
 
 			// Load teams and timer
-			const storedTeams = localStorage.getItem('teams');
-			const storedTimerSeconds = localStorage.getItem('timerSeconds');
+			const storedTeams = sessionStorage.getItem('teams');
+			const storedTimerSeconds = sessionStorage.getItem('timerSeconds');
 			if (storedTeams) {
 				teams = JSON.parse(storedTeams);
 			}
@@ -41,7 +39,7 @@
 
 	function endGame() {
 		teams = [...teams].sort((a, b) => b.points - a.points);
-		localStorage.setItem('teams', JSON.stringify(teams));
+		sessionStorage.setItem('teams', JSON.stringify(teams));
 	}
 </script>
 
