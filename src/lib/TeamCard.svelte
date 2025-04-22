@@ -1,10 +1,8 @@
 <script>
 	let { name, points = $bindable(0), ...props } = $props();
-
-	async function savePoints(event) {}
 </script>
 
-<div
+<div 
 	class="m-auto rounded-3xl w-1/5 border-4 border-solid border-black bg-gray-500 py-2 sm:text-lg md:text-xl lg:text-2xl text-black text-center"
 >
 	{name}:
@@ -14,7 +12,6 @@
 		min="0"
 		step="100"
 		bind:value={points}
-		onchange={savePoints}
 		{...props}
 	/>pts
-</div>
+  </div>

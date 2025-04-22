@@ -8,7 +8,7 @@
 
 	let { data } = $props();
 	let gameSet = $state(data.post.set);
-	let teams = $state([]);
+	let teams = $state(data.post.teams || []);
 	let secondsTimer = $state();
 
 	onMount(() => {
@@ -76,8 +76,8 @@
 	</div>
 
 	<div class="mt-4 flex">
-		{#each teams as team}
-			<TeamCard name={team.name} points={team.points} />
+		{#each teams as team, i (team.name)}
+			<TeamCard bind:name={teams[i].name} bind:points={teams[i].points}/>
 		{/each}
 	</div>
 </div>
