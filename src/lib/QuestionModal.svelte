@@ -32,7 +32,7 @@
 
 	onMount(() => {
 		if (typeof window !== 'undefined') {
-			const storedSeconds = localStorage.getItem('timerSeconds');
+			const storedSeconds = sessionStorage.getItem('timerSeconds');
 			if (storedSeconds) {
 				currentSeconds = parseInt(storedSeconds);
 			}

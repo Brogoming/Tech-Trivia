@@ -16,7 +16,7 @@
 
 	let selectedGame = $state('');
 	let startButtonText = $state('');
-	let selectedTimer = $state(timerOptions[0].value);
+	let selectedTimer = $state(5);
 	let numberOfTeams = $state(0);
 	let teams = $state([
 		{ name: 'team1', points: 0 },
@@ -52,7 +52,6 @@
 		const validTeams = teams.filter((team) => team.name.trim() !== '');
 		if (validTeams.length === numberOfTeams) {
 			sessionStorage.setItem('teams', JSON.stringify(validTeams));
-			sessionStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			sessionStorage.setItem('timerSeconds', selectedTimer); // Use selectedTimer here
 			window.location.href = `${base}/board/${selectedGame}`;
 			if (selectedGame === 'custom') {
