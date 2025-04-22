@@ -1,6 +1,5 @@
 <script>
 	import { createEventDispatcher, onMount } from 'svelte';
-	import TeamCard from './TeamCard.svelte';
 	import QuestionCard from './QuestionCard.svelte';
 
 	const dispatch = createEventDispatcher();

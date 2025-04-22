@@ -1,6 +1,7 @@
 <script>
-	export let name = '';
-	export let points = 0;
+	let { name, points = $bindable(0), ...props } = $props();
+
+	async function savePoints(event) {}
 </script>
 
 <div
@@ -13,5 +14,7 @@
 		min="0"
 		step="100"
 		bind:value={points}
+		onchange={savePoints}
+		{...props}
 	/>pts
 </div>
